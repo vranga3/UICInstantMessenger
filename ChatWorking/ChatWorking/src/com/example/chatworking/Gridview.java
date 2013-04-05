@@ -17,6 +17,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -244,4 +246,13 @@ protected void onResume() {
 
 });
 	}
+	
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// TODO Auto-generated method stub
+		MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.optionmenu, menu);
+	    return true;
+		
+	}
+	
 }
