@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <ImageButton
+        android:id="@+id/imageButton1"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/ic_launcher"
+        android:gravity="center"
+        android:layout_gravity="center"
+       
+        />
+	<ImageView
+	    android:layout_width="fill_parent"
+		android:layout_height="2dip"
+		android:paddingTop="1dp"
+		android:src="@android:color/darker_gray"
+		 />
+	
+	    <LinearLayout
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical"
+	    android:padding="10dp"
+	   >"
+	    "
+  		<TextView
+        android:id="@+id/textView1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        android:textSize="15dp"
+        android:layout_margin="20dp" 
+        />
+
+    	<EditText
+        android:id="@+id/editText1"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:layout_margin="20dp"
+        android:editable="false"
+        android:ems="10"
+        android:background="@drawable/round_rectangle_shape"
+        >"
+
+        <requestFocus />
+   		 </EditText>
+
+   		<TextView
+        android:id="@+id/textView2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="This is not your NetId or password.This is the name that will appear in your friend's contact lists."
+         android:layout_margin="20dp"
+         />
+
+  		<Button
+        android:id="@+id/button1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Edit my profile"
+        android:gravity="center" 
+        android:includeFontPadding="true"
+        android:layout_gravity="center"
+        android:background="@drawable/round_rectangle_shape"
+        android:layout_margin="20dp" />"
+  		
+    </LinearLayout>
+</LinearLayout>
