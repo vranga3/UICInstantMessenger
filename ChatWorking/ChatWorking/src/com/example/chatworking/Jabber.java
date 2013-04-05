@@ -24,7 +24,7 @@ import org.jivesoftware.smack.packet.Presence.Type;
 import android.app.Application;
 import android.os.AsyncTask;
 import android.util.Log;
-
+//changing jabber 
 public class Jabber extends Application implements MessageListener{
 	private Jabber account = null;
 	private XMPPConnection connection;
