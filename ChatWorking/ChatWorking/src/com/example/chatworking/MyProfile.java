@@ -1,6 +1,6 @@
 package com.example.chatworking;
 
-//this is myprofile class
+//this is MyProfile class
 
 import java.io.File;
 import java.util.ArrayList;
@@ -24,6 +24,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,7 +36,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MyProfile extends Activity {
-	
 	private Uri mUri;
 	Bitmap bitmap;
 	Jabber reference,account;
@@ -54,6 +54,8 @@ public class MyProfile extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.myprofile);
+		reference = (Jabber)getApplication();
+		account = reference.getInstance();
 		setTitle(" My Profile");
 	 IB1=(ImageButton) findViewById(R.id.imageButton1);
 	 registerForContextMenu(IB1);
@@ -73,6 +75,16 @@ public class MyProfile extends Activity {
 	  
 	}// END OF ONCREATE METHOD
 
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.optionmenu, menu);
+	    return true;
+	}
+
+
+	//******* Method to create Context Menu **********//
 	@Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo)
     {
@@ -80,6 +92,7 @@ public class MyProfile extends Activity {
 	        menu.setHeaderTitle("Post Image");
 	        MenuInflater inflater = getMenuInflater();
 	        inflater.inflate(R.menu.contextmenuforimages, menu);
+	        
 	}//END OF onCreateContextMenu
 
 	  @Override
@@ -143,11 +156,14 @@ public class MyProfile extends Activity {
 	            {
 	                String[] filePathColumn = {MediaStore.Images.Media.DATA};
 	                Cursor cursor = getContentResolver().query(photoUri, filePathColumn, null, null, null);
+	               
 	                cursor.moveToFirst();
 	                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
 	                String filePath = cursor.getString(columnIndex);
 	                cursor.close();
 	                Log.v("test", "Gallery File Path=====>>>"+filePath);
+	              account.setFilePath(filePath); 
+	              account.setFilepathset(true);
 	              bitmap = BitmapFactory.decodeFile(filePath);
 	              bitmap = Bitmap.createScaledBitmap(bitmap,350, 350, true);
 	              IB1.setImageBitmap(bitmap);
@@ -198,6 +214,20 @@ public class MyProfile extends Activity {
 	          
 	        }
 	    }
+
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		if(account.isFilepathset())
+		{
+        bitmap = BitmapFactory.decodeFile(account.getFilePath());
+        bitmap = Bitmap.createScaledBitmap(bitmap,350, 350, true);
+        IB1.setImageBitmap(bitmap);
+		}
+		
+	}
 
 
 
