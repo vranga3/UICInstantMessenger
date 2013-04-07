@@ -166,7 +166,7 @@ public class Jabber extends Application implements MessageListener{
 			connection.login(userName, password);
 		}
 	}
-
+//comment to check 
 	public void sendMessage(String message, String to) throws XMPPException {
 		Chat chat = connection.getChatManager().createChat(to, this);
 		chat.sendMessage(message);
