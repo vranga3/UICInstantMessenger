@@ -1,5 +1,8 @@
 package com.example.chatworking;
 
+import org.jivesoftware.smack.Chat;
+import org.jivesoftware.smack.XMPPConnection;
+
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +14,8 @@ import android.widget.ListView;
 
 public class MyContacts extends ListActivity {
 	Jabber account,reference;
+	//XMPPConnection connection;
+	Chat chat;
 	String buddies[];
 	boolean table[];
 
@@ -52,8 +57,7 @@ public class MyContacts extends ListActivity {
 		startActivity(chatting);
 		
 		
-		
-	}
+	}// end of onListItemClick
 
 	
 

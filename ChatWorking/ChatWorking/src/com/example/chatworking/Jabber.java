@@ -12,6 +12,7 @@ import org.jivesoftware.smack.MessageListener;
 import org.jivesoftware.smack.PacketListener;
 import org.jivesoftware.smack.Roster;
 import org.jivesoftware.smack.RosterEntry;
+import org.jivesoftware.smack.RosterListener;
 import org.jivesoftware.smack.SASLAuthentication;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
@@ -19,17 +20,43 @@ import org.jivesoftware.smack.filter.PacketTypeFilter;
 import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.packet.Packet;
 import org.jivesoftware.smack.packet.Presence;
+import org.jivesoftware.smack.packet.Presence.Mode;
 import org.jivesoftware.smack.packet.Presence.Type;
 
 import android.app.Application;
 import android.os.AsyncTask;
 import android.util.Log;
-//changing jabber 
+
 public class Jabber extends Application implements MessageListener{
 	private Jabber account = null;
 	private XMPPConnection connection;
+	String filepath = null; 
 	boolean login=true;
 	boolean sentRequest=false;
+	boolean filepathset = false; 
+	
+	
+	
+	
+	public boolean isFilepathset() {
+		return filepathset;
+	}
+
+	public void setFilepathset(boolean filepathset) {
+		this.filepathset = filepathset;
+	}
+
+	public void setFilePath(String path)
+	{
+		filepath = path ; 
+	}
+	
+	public String getFilePath()
+	{
+		return filepath;
+	}
+	
+	
 	@Override
 	public void onCreate() {
 		// TODO Auto-generated method stub
@@ -147,18 +174,18 @@ public class Jabber extends Application implements MessageListener{
 
 	public String[] getBuddyList() {
 		Roster roster = connection.getRoster();
-
+	
 		Collection<RosterEntry> entries = roster.getEntries();
 		String result[] = new String[entries.size()];
 		int i=0;
 		for (RosterEntry r : entries) {
-			// System.out.println(r.getUser());
-			//	Log.i("test",r.getUser());
-			result[i++]=r.getName();   
+			result[i++]=r.getName(); 
 		}
 		return result;
 	}
 
+		
+	
 	public boolean isInBuddyList(String username) {
 		Roster roster = connection.getRoster();
 		Collection<RosterEntry> entries = roster.getEntries();
