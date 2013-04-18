@@ -20,7 +20,7 @@ import android.widget.ListView;
 public class Contacts extends ListActivity {
 
 	Jabber account,reference;
-	String buddies[]={"MyContacts","AddContacts"};
+	String buddies[]={"My Contacts","Add Contacts","Remove Contacts","Block Contacts"};
 
 
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,17 +39,21 @@ public class Contacts extends ListActivity {
 		
 		String local= buddies[position];
 		
-		if(local.equals("MyContacts"))
+		if(local.equals("My Contacts"))
 		{
 			Intent mainactivity = new Intent("com.example.chatworking.MYCONTACTS");
 			startActivity(mainactivity);
 		}
-		if(local.equals("AddContacts"))
+		if(local.equals("Add Contacts"))
 		{
 			Intent mainactivity = new Intent("com.example.chatworking.ADDFRIEND");
 			startActivity(mainactivity);
 		}
-		
+		if(local.equals("Remove Contacts"))
+		{
+			Intent mainactivity = new Intent("com.example.chatworking.REMOVECONTACTS");
+			startActivity(mainactivity);
+		}
 		
 		
 	}

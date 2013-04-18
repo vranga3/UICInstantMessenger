@@ -4,7 +4,9 @@ package com.example.chatworking;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 
 import org.jivesoftware.smack.Chat;
 import org.jivesoftware.smack.ConnectionConfiguration;
@@ -20,6 +22,7 @@ import org.jivesoftware.smack.filter.PacketTypeFilter;
 import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.packet.Packet;
 import org.jivesoftware.smack.packet.Presence;
+import org.jivesoftware.smack.packet.RosterPacket;
 import org.jivesoftware.smack.packet.Presence.Mode;
 import org.jivesoftware.smack.packet.Presence.Type;
 
@@ -34,9 +37,17 @@ public class Jabber extends Application implements MessageListener{
 	boolean login=true;
 	boolean sentRequest=false;
 	boolean filepathset = false; 
+	LinkedList<String> friendRequests = new LinkedList<String>();
 	
+	public void addToFriendRequestList(String request)
+	{
+		friendRequests.add(request);
+	}
 	
-	
+	public LinkedList<String> getFriendRequestList()
+	{
+		return friendRequests;
+	}
 	
 	public boolean isFilepathset() {
 		return filepathset;
@@ -130,8 +141,7 @@ public class Jabber extends Application implements MessageListener{
 		SASLAuthentication.supportSASLMechanism("PLAIN", 0);	
 	}
 
-
-
+	
 
 
 	public void login(String userName, String password) throws XMPPException{
@@ -172,18 +182,51 @@ public class Jabber extends Application implements MessageListener{
 		chat.sendMessage(message);
 	}
 
-	public String[] getBuddyList() {
+	public ArrayList<String> getBuddyList() {
 		Roster roster = connection.getRoster();
-	
+		roster.reload();
 		Collection<RosterEntry> entries = roster.getEntries();
-		String result[] = new String[entries.size()];
+		ArrayList<String> result = new ArrayList<String>();
 		int i=0;
 		for (RosterEntry r : entries) {
-			result[i++]=r.getName(); 
+			if(r.getStatus() != RosterPacket.ItemStatus.SUBSCRIPTION_PENDING)
+			{
+			Log.i("test",r.getUser().toString());
+			Presence p = roster.getPresence(r.getUser());
+			Boolean e = p.isAvailable();
+			Log.i("test",e.toString());
+			result.add(r.getName()); 
+			}
 		}
+		
+		for (RosterEntry r : entries) {
+			if(r.getStatus() == RosterPacket.ItemStatus.SUBSCRIPTION_PENDING)
+			{
+				result.add(r.getName()+" - Pending Approval");
+			}
+		}
+		
+		
+		
 		return result;
 	}
 
+	public ArrayList<String> getOnlineBuddyList() {
+		Roster roster = connection.getRoster();
+		roster.reload();
+		Collection<RosterEntry> entries = roster.getEntries();
+		ArrayList<String> result = new ArrayList<String>();
+		int i=0;
+		for (RosterEntry r : entries) {
+			Presence p = roster.getPresence(r.getUser());
+			if(p.isAvailable())
+			{
+				Log.i("test",r.getName());
+				result.add(r.getName()); 
+			}
+		}
+		return result;
+	}
 		
 	
 	public boolean isInBuddyList(String username) {

@@ -37,6 +37,7 @@ public class Gridview extends Activity{
 		// TODO Auto-generated method stub
 		super.onResume();
 		Log.i("test","onresume");
+		/*
 		connection.addPacketListener(new PacketListener() {
 
 			@Override
@@ -102,7 +103,8 @@ public class Gridview extends Activity{
 					
 									} 				
 			}
-		}, new PacketTypeFilter(Presence.class));
+		}, new PacketTypeFilter(Presence.class));*/
+		
 	}
 
 	/*
@@ -223,7 +225,7 @@ protected void onResume() {
 
 			break;
 		case 3:// case for startchatting
-			Intent i3=new Intent(getApplicationContext(),MyContacts.class);
+			Intent i3=new Intent(getApplicationContext(),OnlineBuddies.class);
 	        i3.putExtra("id", position);
 	        startActivity(i3);
 			

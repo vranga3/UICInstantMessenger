@@ -65,6 +65,15 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="com.example.chatworking.OnlineBuddies"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="com.example.chatworking.ONLINEBUDDIES" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name="com.example.chatworking.Chatting"
             android:label="@string/app_name" >
             <intent-filter>
@@ -91,7 +100,15 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        
+          <activity
+            android:name="com.example.chatworking.RemoveContacts"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="com.example.chatworking.REMOVECONTACTS" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name="com.example.chatworking.MyProfile"
             android:label="@string/app_name" >

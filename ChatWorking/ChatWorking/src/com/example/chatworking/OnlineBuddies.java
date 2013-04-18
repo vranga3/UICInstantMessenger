@@ -14,7 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 
-public class MyContacts extends ListActivity {
+public class OnlineBuddies extends ListActivity {
 	Jabber account,reference;
 	//XMPPConnection connection;
 	Chat chat;
@@ -24,7 +24,14 @@ public class MyContacts extends ListActivity {
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		setListAdapter(new ArrayAdapter<String>(MyContacts.this,android.R.layout.simple_list_item_1,account.getBuddyList()));
+		try{
+		buddies = account.getOnlineBuddyList();
+		}
+		catch(NullPointerException e)
+		{
+			Log.i("test",e.toString());
+		}
+		setListAdapter(new ArrayAdapter<String>(OnlineBuddies.this,android.R.layout.simple_list_item_1,buddies));
 
 	}
 	
@@ -33,9 +40,15 @@ public class MyContacts extends ListActivity {
 		super.onCreate(savedInstanceState);
 		reference = (Jabber)getApplication();
 		account = reference.getInstance();
-		buddies = account.getBuddyList();
-		setTitle("My Contacts");
-		setListAdapter(new ArrayAdapter<String>(MyContacts.this,android.R.layout.simple_list_item_1,buddies));
+		try{
+			buddies = account.getOnlineBuddyList();
+			}
+			catch(NullPointerException e)
+			{
+				Log.i("test",e.toString());
+			}
+		setTitle("Online Buddies");
+		setListAdapter(new ArrayAdapter<String>(OnlineBuddies.this,android.R.layout.simple_list_item_1,buddies));
 	}
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
@@ -50,7 +63,7 @@ public class MyContacts extends ListActivity {
 		b.putString("netid",netid);
 		//table[position]=true;
 		
-		Intent chatting = new Intent(MyContacts.this,Chatting.class);
+		Intent chatting = new Intent(OnlineBuddies.this,Chatting.class);
 		chatting.putExtras(b);
 		startActivity(chatting);
 		
